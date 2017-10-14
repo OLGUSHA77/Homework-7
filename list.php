@@ -8,11 +8,8 @@ if (is_dir($dir))
 }
 if (isset($_GET['text']) && $_GET['text']==true) {
     echo "Вы ответили не на все вопросы. Попробуйте еще раз!";
-}
-else
-{
-    header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 }?>
+
 <!DOCTYPE html>
 <html>
     <body>
