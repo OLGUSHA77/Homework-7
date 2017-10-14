@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html>
-<body>
 <form action="results.php" method="GET">
-    <?php
 
-    $fileList = glob("*.json");
+    <?php
+    $dir = 'tests';
+    $fileList = scandir($dir);
+    array_shift($fileList); // удаляем из массива '.'
+    array_shift($fileList); // удаляем из массива '..'
+
     if (isset($_GET['status']))
     {
         $n = (int)$_GET['status'];
         $n = $n - 1;
         $curFileTest = $fileList[$n];
+        $fulPathFileTest = 'tests/' . $curFileTest;
 
-        if (!file_exists($curFileTest)) {
-            echo "Файл с именем" . $curFileTest . "не существует!";
+        if (!file_exists($fulPathFileTest)) {
+            http_response_code(404);
+            echo "Файл с именем " . $curFileTest . " не существует!";
+            exit(1);
+        }
+        else {
+             $file = file_get_contents($fulPathFileTest);
+             $dataJSON = json_decode($file,true);
         }
     }
-    $num = 1;
-    ?>
-    Имя файла: <input type="TEXT" name="nameFileTest" value="<?=$curFileTest?>"><br>
-    <?php
+    echo 'Имя файла:<input type="TEXT" name="nameFileTest" value="' . $curFileTest . '"><br>';
 
-    $data = json_decode(file_get_contents($curFileTest),true);
-    foreach ($data as $item) {
-        echo 'ВОПРОС #' . $item['number'] . ' ' . $item['Question'] . '<br>';
-        echo '<label><input type="radio" value="1" name="question' . $num . '">'. $item['answer1']. '</label><br>';
-        echo '<label><input type="radio" value="2" name="question' . $num . '">'. $item['answer2']. '</label><br>';
-        echo '<label><input type="radio" value="3" name="question' . $num . '">'. $item['answer3']. '</label><br>';
+    $num = 1;
+    foreach ($dataJSON as $item)
+    {
+        echo "ВОПРОС #" . $item['number'] . ' ' . $item['Question'] . '<br>';
+        foreach ($item['answers'] as $answer)
+            echo '<label><input type="radio" value="' . $answer . '" name="question' . $num . '">'. $answer . '</label><br>';
         $num = $num + 1;
     }
     ?>
     <br><input type="submit" value="Готово">
+    <p></p>
 </form>
-<h2><a href="list.php">Выбор теста</a></h2>
-</body>
-</html>
+
 
 
 

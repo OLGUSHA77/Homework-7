@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="80309432-bd92-4574-8540-a805faf13b1e" name="local.pr7" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="D:\ProjectsPHP\pr7" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,7 +1,0 @@
-﻿[
-  {"number": "1","Question": "В каком треугольнике все углы равны 60 град?","answer1": "прямоугольный","answer2": "равнобедренный","answer3": "равносторонний","true_answer": "3"},
-  {"number": "2","Question": "Сколько биссектрис в прямоугольном треугольнике?","answer1": "1","answer2": "2","answer3": "3","true_answer": "3"},
-  {"number": "3","Question": "Чему равна сумма углов треугольника?","answer1": "180","answer2": "280","answer3": "360","true_answer": "1"},
-  {"number": "4","Question": "Чему равен sin30 ?","answer1": "0,3","answer2": "0,5","answer3": "1","true_answer": "2"},
-  {"number": "5","Question": "Чему равен tan45 ?","answer1": "2","answer2": "0,5","answer3": "1","true_answer": "3"}
-]

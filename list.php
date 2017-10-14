@@ -1,10 +1,16 @@
 <?php
-$fileList = glob("*.json");
+$dir = 'tests';
+if (is_dir($dir))
+{
+    $fileList = scandir($dir);
+    array_shift($fileList); // удаляем из массива '.'
+    array_shift($fileList); // удаляем из массива '..'
+}
+
 $num = 1;
 
-if (isset($_GET['text'])){
-    $message = $_GET['text'];
-    echo $message;
+if (isset($_GET['text'])) {
+    echo $_GET[‘text’];
 }
 ?>
 <!DOCTYPE html>
@@ -20,6 +26,6 @@ if (isset($_GET['text'])){
             <p><input type="submit" value="Пройти тест"></p>
         </form>
 
-        <h4><a href="admin.php">Администратор</a></h4>
+        <a href="admin.php">Загрузка тестов</a>
     </body>
 </html>

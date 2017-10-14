@@ -1,29 +1,39 @@
 <?php
 $massAnswer = [];
 $massTrueAnswer = [];
-if ((isset($_GET['question1'])) && (isset($_GET['question2'])) &&
-    (isset($_GET['question3'])) && (isset($_GET['question4'])) &&
-    (isset($_GET['question5']))) {
-    $massAnswer[] = $_GET['question1'];
-    $massAnswer[] = $_GET['question2'];
-    $massAnswer[] = $_GET['question3'];
-    $massAnswer[] = $_GET['question4'];
-    $massAnswer[] = $_GET['question5'];
+
+if (isset($_GET))
+{
+    foreach ($_GET as $key=>$item)
+    {
+        if (strrpos($key, "question") !== false){
+            $massAnswer[] = $item;
+        }
+    }
 }
 else {
     header("Location: list.php?text=\"Вы ответили не на все вопросы. Попробуйте еще раз\"");
 }
+//echo "<pre>";
+//var_dump($massAnswer);
 
 if (isset($_GET['nameFileTest']))
 {
    $fileNameTest = $_GET['nameFileTest'];
-   $dataJSON = json_decode(file_get_contents($fileNameTest),true);
+   $dataJSON = json_decode(file_get_contents('tests/' . $fileNameTest),true);
 
    foreach ($dataJSON as $item)
    {
        $massTrueAnswer[] = $item['true_answer'];
    }
 }
+else {
+    http_response_code(404);
+    echo "Cтраница не найдена!";
+    exit(1);
+}
+//echo "<pre>";
+//var_dump($massTrueAnswer);
 
 $result = array_diff_assoc($massAnswer, $massTrueAnswer);
 
@@ -35,6 +45,7 @@ else{
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
     <body>
@@ -42,10 +53,11 @@ else{
         <p><strong><?=$messageResult?></strong></p>
         <p>Введите Ваше имя и Фамилию для сертификата:</p>
         <form action="captcha.php"  method="GET">
-            <p><input type="TEXT" name="userName" placeholder="Введите ваше имя" size="35px">
-            <input type="TEXT" name="userSurname" placeholder="Введите вашу фамилию" size="55px">
-            <input type="submit" value="ОК"></p>
+            <p><input type="TEXT" name="userName" placeholder="Введите ваше имя" size="35px"></p>
+            <p><input type="TEXT" name="userSurname" placeholder="Введите вашу фамилию" size="55px"></p>
+            <p><input type="submit" value="ОК"></p>
         </form>
-        <h4><a href="admin.php">Администратор</a></h4>
+        <a href="admin.php">Загрузка тестов</a>
+        <a href="list.php">Выбор тестов</a>
     </body>
 </html>
