@@ -6,20 +6,21 @@ if (is_dir($dir))
     array_shift($fileList); // удаляем из массива '.'
     array_shift($fileList); // удаляем из массива '..'
 }
-
-$num = 1;
-
-if (isset($_GET['text'])) {
-    echo $_GET[‘text’];
+if (isset($_GET['text']) && $_GET['text']==true) {
+    echo "Вы ответили не на все вопросы. Попробуйте еще раз!";
 }
-?>
+else
+{
+    header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+}?>
 <!DOCTYPE html>
 <html>
     <body>
         <h3><strong>СПИСОК ТЕСТОВ</strong></h3>
         <form action="test.php"  method="GET">
             <p>Выберите тест:<br>
-                <?php foreach ($fileList as $file) {
+                <?php $num = 1;
+                foreach ($fileList as $file) {
                 echo '<label><input type="radio" name="status" value="' .$num.'">'.$file.'</label><br>';
                 $num = $num + 1;
                 }?></p>

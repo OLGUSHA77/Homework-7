@@ -1,8 +1,9 @@
 <?php
+const countQuestion = 5;
 $massAnswer = [];
 $massTrueAnswer = [];
 
-if (isset($_GET))
+if (isset($_GET) && count($_GET) >= countQuestion)
 {
     foreach ($_GET as $key=>$item)
     {
@@ -12,7 +13,7 @@ if (isset($_GET))
     }
 }
 else {
-    header("Location: list.php?text=\"Вы ответили не на все вопросы. Попробуйте еще раз\"");
+    header("Location: list.php?text=true");
 }
 //echo "<pre>";
 //var_dump($massAnswer);
@@ -57,7 +58,7 @@ else{
             <p><input type="TEXT" name="userSurname" placeholder="Введите вашу фамилию" size="55px"></p>
             <p><input type="submit" value="ОК"></p>
         </form>
-        <a href="admin.php">Загрузка тестов</a>
-        <a href="list.php">Выбор тестов</a>
+        <p><a href="admin.php">Загрузка тестов</a></p>
+        <p><a href="list.php">Выбор тестов</a></p>
     </body>
 </html>
